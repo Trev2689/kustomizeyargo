@@ -6,19 +6,35 @@ namespace: $(NAMESPACE_PLACEHOLDER)
 resources:
 - ../../base
 
-patchesStrategicMerge:
-- patch-backup.yaml
-- patch-service-monitor.yaml
-- patch-ingressroute.yaml
-- patch-vault-cert.yaml
+configMapGenerator:
+- name: friday-vault-values-configmap
+  files:
+  - values.yaml
+  options:
+    disableNameSuffixHash: true
 
-configurations:
-- kustomizeconfig.yaml
+
+vars:
+- name: NAMESPACE_PLACEHOLDER
+  objref:
+    kind: ConfigMap
+    name: friday-vault-values-configmap
+    apiVersion: v1
+  fieldref:
+    fieldpath: data/namespace
+
+- name: NAME_PLACEHOLDER
+  objref:
+    kind: ConfigMap
+    name: friday-vault-values-configmap
+    apiVersion: v1
+  fieldref:
+    fieldpath: data/name
 
 helmCharts:
 - name: vault
   version: 0.27.0
   releaseName: $(NAME_PLACEHOLDER)
   repo: https://helm.releases.hashicorp.com
-  valuesFile: values.yaml
+  valuesFile: vault-values.yaml
   namespace: $(NAMESPACE_PLACEHOLDER)
