@@ -13,23 +13,60 @@ configMapGenerator:
   options:
     disableNameSuffixHash: true
 
-
-vars:
-- name: NAMESPACE_PLACEHOLDER
-  objref:
+replacements:
+- source:
     kind: ConfigMap
     name: friday-vault-values-configmap
     apiVersion: v1
-  fieldref:
-    fieldpath: data/namespace
+    fieldRef:
+      fieldPath: data/namespace
+  targets:
+  - select:
+      kind: Kustomization
+    fieldPaths:
+    - spec.namespace
 
-- name: NAME_PLACEHOLDER
-  objref:
-    kind: ConfigMap
+- source:
     name: friday-vault-values-configmap
-    apiVersion: v1
-  fieldref:
-    fieldpath: data/name
+    field:
+      name: name
+  targets:
+  - select:
+      kind: HelmChart
+    fieldPaths:
+    - spec.releaseName
+- source:
+    name: friday-vault-values-configmap
+    field:
+      name: namespace
+  targets:
+  - select:
+      kind: HelmChart
+    fieldPaths:
+    - spec.namespace
+
+- source:
+    name: friday-vault-values-configmap
+    field:
+      name: namespace
+  targets:
+  - select:
+      kind: ServiceMonitor
+    fieldPaths:
+    - metadata.namespace
+    - spec.namespaceSelector.matchNames[*]
+
+- source:
+    name: friday-vault-values-configmap
+    field:
+      name: name
+  targets:
+  - select:
+      kind: ServiceMonitor
+    fieldPaths:
+    - metadata.labels.app.kubernetes.io/instance
+    - metadata.name
+    - spec.selector.matchLabels.app.kubernetes.io/instance
 
 helmCharts:
 - name: vault
@@ -38,3 +75,4 @@ helmCharts:
   repo: https://helm.releases.hashicorp.com
   valuesFile: vault-values.yaml
   namespace: $(NAMESPACE_PLACEHOLDER)
+
