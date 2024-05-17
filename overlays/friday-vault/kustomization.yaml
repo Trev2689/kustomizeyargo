@@ -68,11 +68,33 @@ replacements:
     - metadata.name
     - spec.selector.matchLabels.app.kubernetes.io/instance
 
+- source:
+    name: friday-vault-values-configmap
+    field:
+      path: name
+  targets:
+  - select:
+      kind: "*"
+    fieldSpecs:
+    - path: data/server/ha/raft/config/retry_join/leader_api_addr
+    # Add other field paths where replacements should occur
+
+- source:
+    name: friday-vault-values-configmap
+    field:
+      path: namespace
+  targets:
+  - select:
+      kind: "*"
+    fieldSpecs:
+    - path: data/server/ha/raft/config/retry_join/leader_api_addr
+    # Add other field paths where replacements should occur
+
 helmCharts:
 - name: vault
   version: 0.27.0
   releaseName: $(NAME_PLACEHOLDER)
   repo: https://helm.releases.hashicorp.com
-  valuesFile: vault-values.yaml
+  valuesFile: ../../base/vault-values.yaml
   namespace: $(NAMESPACE_PLACEHOLDER)
 
