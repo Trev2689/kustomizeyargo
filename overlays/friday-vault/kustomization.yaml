@@ -1,3 +1,4 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: $(NAMESPACE_PLACEHOLDER)
 
@@ -58,23 +59,12 @@ replacements:
 
 - source:
     name: friday-vault-values-configmap
-    field:
-      path: name
+    path: data/server/ha/raft/config/retry_join/leader_api_addr
   targets:
   - select:
       kind: "*"
-    fieldSpecs:
-    - path: data/server/ha/raft/config/retry_join/leader_api_addr
-
-- source:
-    name: friday-vault-values-configmap
-    field:
-      path: namespace
-  targets:
-  - select:
-      kind: "*"
-    fieldSpecs:
-    - path: data/server/ha/raft/config/retry_join/leader_api_addr
+    fieldPaths:
+    - data/server/ha/raft/config/retry_join/leader_api_addr
 
 helmCharts:
 - name: vault
