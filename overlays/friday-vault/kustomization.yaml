@@ -14,8 +14,7 @@ configMapGenerator:
 replacements:
 - source:
     name: friday-vault-values-configmap
-    field:
-      name: name
+    path: name
   targets:
   - select:
       kind: HelmChart
@@ -36,8 +35,7 @@ replacements:
 
 - source:
     name: friday-vault-values-configmap
-    field:
-      name: namespace
+    path: namespace
   targets:
   - select:
       kind: Kustomization
