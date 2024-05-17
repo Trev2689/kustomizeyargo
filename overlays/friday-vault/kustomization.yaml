@@ -14,18 +14,6 @@ configMapGenerator:
 
 replacements:
 - source:
-    kind: ConfigMap
-    name: friday-vault-values-configmap
-    apiVersion: v1
-    fieldRef:
-      fieldPath: data/namespace
-  targets:
-  - select:
-      kind: Kustomization
-    fieldPaths:
-    - spec.namespace
-
-- source:
     name: friday-vault-values-configmap
     field:
       name: name
@@ -34,6 +22,8 @@ replacements:
       kind: HelmChart
     fieldPaths:
     - spec.releaseName
+    - spec.valuesFile.data.name
+
 - source:
     name: friday-vault-values-configmap
     field:
@@ -43,51 +33,20 @@ replacements:
       kind: HelmChart
     fieldPaths:
     - spec.namespace
+    - spec.valuesFile.data.namespace
 
-- source:
-    name: friday-vault-values-configmap
-    field:
-      name: namespace
-  targets:
   - select:
       kind: ServiceMonitor
     fieldPaths:
     - metadata.namespace
     - spec.namespaceSelector.matchNames[*]
 
-- source:
-    name: friday-vault-values-configmap
-    field:
-      name: name
-  targets:
-  - select:
-      kind: ServiceMonitor
-    fieldPaths:
-    - metadata.labels.app.kubernetes.io/instance
-    - metadata.name
-    - spec.selector.matchLabels.app.kubernetes.io/instance
-
-- source:
-    name: friday-vault-values-configmap
-    field:
-      path: name
-  targets:
   - select:
       kind: "*"
     fieldSpecs:
     - path: data/server/ha/raft/config/retry_join/leader_api_addr
-    # Add other field paths where replacements should occur
-
-- source:
-    name: friday-vault-values-configmap
-    field:
-      path: namespace
-  targets:
-  - select:
-      kind: "*"
-    fieldSpecs:
-    - path: data/server/ha/raft/config/retry_join/leader_api_addr
-    # Add other field paths where replacements should occur
+      create: true
+      kind: string
 
 helmCharts:
 - name: vault
@@ -96,4 +55,3 @@ helmCharts:
   repo: https://helm.releases.hashicorp.com
   valuesFile: ../../base/vault-values.yaml
   namespace: $(NAMESPACE_PLACEHOLDER)
-
