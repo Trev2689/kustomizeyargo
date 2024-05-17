@@ -4,8 +4,4 @@ kind: Kustomization
 namespace: placeholder-namespace
 
 resources:
-- backup.yaml
 - service-monitor.yaml
-- ingressroute.yaml
-- configmap.yaml
-- vault-cert.yaml
