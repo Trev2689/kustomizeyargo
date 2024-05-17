@@ -45,7 +45,6 @@ replacements:
       kind: "*"
     fieldSpecs:
     - path: data/server/ha/raft/config/retry_join/leader_api_addr
-      create: true
       kind: string
 
 helmCharts:
