@@ -1,3 +1,4 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 namespace: $(NAMESPACE_PLACEHOLDER)
@@ -16,13 +17,23 @@ replacements:
 - source:
     name: friday-vault-values-configmap
     field:
+      name: namespace
+  targets:
+  - select:
+      kind: Kustomization
+    fieldPaths:
+    - spec.namespace
+
+- source:
+    name: friday-vault-values-configmap
+    field:
       name: name
   targets:
   - select:
       kind: HelmChart
     fieldPaths:
     - spec.releaseName
-    - spec.valuesFile.data.name
+    - spec.namespace
 
 - source:
     name: friday-vault-values-configmap
@@ -30,22 +41,42 @@ replacements:
       name: namespace
   targets:
   - select:
-      kind: HelmChart
-    fieldPaths:
-    - spec.namespace
-    - spec.valuesFile.data.namespace
-
-  - select:
       kind: ServiceMonitor
     fieldPaths:
     - metadata.namespace
     - spec.namespaceSelector.matchNames[*]
 
+- source:
+    name: friday-vault-values-configmap
+    field:
+      name: name
+  targets:
+  - select:
+      kind: ServiceMonitor
+    fieldPaths:
+    - metadata.labels.app.kubernetes.io/instance
+    - metadata.name
+    - spec.selector.matchLabels.app.kubernetes.io/instance
+
+- source:
+    name: friday-vault-values-configmap
+    field:
+      path: name
+  targets:
   - select:
       kind: "*"
     fieldSpecs:
     - path: data/server/ha/raft/config/retry_join/leader_api_addr
-      kind: string
+
+- source:
+    name: friday-vault-values-configmap
+    field:
+      path: namespace
+  targets:
+  - select:
+      kind: "*"
+    fieldSpecs:
+    - path: data/server/ha/raft/config/retry_join/leader_api_addr
 
 helmCharts:
 - name: vault
