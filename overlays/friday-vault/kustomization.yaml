@@ -21,7 +21,7 @@ replacements:
     group: ""
     name: friday-vault-values-configmap
     namespace: friday-vault
-    fieldPath: data.name
+    fieldPath: data.NAMEE
   targets:
   - select:
       kind: ServiceMonitor
