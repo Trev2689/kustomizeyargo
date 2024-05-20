@@ -1,0 +1,6 @@
+configMapGenerator:
+- name: friday-vault-values-configmap
+  files:
+  - values.yaml
+  options:
+    disableNameSuffixHash: true
