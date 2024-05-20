@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: friday-vault
 
 resources:
-- configmap/
+# - configmap/
 - ../../base
 
 # configMapGenerator:
@@ -16,9 +16,9 @@ resources:
 
 replacements:
 - source:
-    kind: ConfigMap
-    name: friday-vault-values-configmap
-    fieldPath: data/values.yaml/name
+    path: values.yaml
+    fieldRef:
+      fieldPath: name
   targets:
   - select:
       kind: ServiceMonitor
@@ -33,9 +33,9 @@ replacements:
     - data.global.ha.raft.config.retry_join.leader_api_addr
 
 - source:
-    kind: ConfigMap
-    name: friday-vault-values-configmap
-    fieldPath: data/values.yaml/namespace
+    path: values.yaml
+    fieldRef:
+      fieldPath: namespace
   targets:
   - select:
       kind: ServiceMonitor
