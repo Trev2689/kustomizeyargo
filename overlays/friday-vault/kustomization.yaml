@@ -18,6 +18,7 @@ replacements:
 - source:
     kind: ConfigMap
     version: v1
+    group: ""
     name: friday-vault-values-configmap
     namespace: friday-vault
     fieldPath: data.name
