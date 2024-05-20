@@ -29,7 +29,7 @@ replacements:
     # - metadata.labels.app.kubernetes.io/instance
     - metadata.name
     options:
-      delimiters:
+      delimiter:
         - "$(NAMEE)"
     # - spec.selector.matchLabels.app.kubernetes.io/instance
   # - select:
