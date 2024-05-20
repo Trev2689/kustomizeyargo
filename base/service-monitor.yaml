@@ -9,19 +9,19 @@ metadata:
   namespace: $(NAMESPACE_PLACEHOLDER)
 spec:
   endpoints:
-    - interval: 30s
-      params:
-        format:
-          - prometheus
-      path: /v1/sys/metrics
-      port: https
-      scheme: https
-      scrapeTimeout: 10s
-      tlsConfig:
-        insecureSkipVerify: true
+  - interval: 30s
+    params:
+      format:
+      - prometheus
+    path: /v1/sys/metrics
+    port: https
+    scheme: https
+    scrapeTimeout: 10s
+    tlsConfig:
+      insecureSkipVerify: true
   namespaceSelector:
     matchNames:
-      - $(NAMESPACE_PLACEHOLDER)
+    - $(NAMESPACE_PLACEHOLDER)
   selector:
     matchLabels:
       app.kubernetes.io/instance: $(NAME_PLACEHOLDER)
