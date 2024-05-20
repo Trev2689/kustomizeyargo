@@ -20,7 +20,7 @@ replacements:
     version: v1
     group: ""
     name: friday-vault-values-configmap
-    namespace: friday-vault
+    # namespace: friday-vault
     fieldPath: data.NAMEE
   targets:
   - select:
