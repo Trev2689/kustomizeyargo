@@ -33,18 +33,18 @@ replacements:
   #   fieldPaths:
   #   - data.global.ha.raft.config.retry_join.leader_api_addr
 
-replacements:
-- source:
-    kind: ConfigMap
-    name: friday-vault-values-configmap
-    namespace: friday-vault
-    fieldPath: data.values.yaml.namespace
-  targets:
-  - select:
-      kind: ServiceMonitor
-    fieldPaths:
-    - metadata.namespace
-    - spec.namespaceSelector.matchNames[*]
+# replacements:
+# - source:
+#     kind: ConfigMap
+#     name: friday-vault-values-configmap
+#     namespace: friday-vault
+#     fieldPath: data.values.yaml.namespace
+#   targets:
+#   - select:
+#       kind: ServiceMonitor
+#     fieldPaths:
+#     - metadata.namespace
+#     - spec.namespaceSelector.matchNames[*]
   # - select:
   #     kind: ConfigMap
   #     name: vault-values-template
