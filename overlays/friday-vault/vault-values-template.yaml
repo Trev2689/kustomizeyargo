@@ -40,13 +40,13 @@ server:
         storage "raft" {
           path = "/vault/data"
           retry_join {
-            leader_api_addr = "https://$(NAME_PLACEHOLDER)-vault-0.$(NAME_PLACEHOLDER)-vault-internal.$(NAME_PLACEHOLDER)-vault.svc.cluster.local:8200"
+            leader_api_addr = "https://friday-vault-0.friday-vault-internal.friday-vault.svc.cluster.local:8200"
           }
           retry_join {
-            leader_api_addr = "https://$(NAME_PLACEHOLDER)-vault-1.$(NAME_PLACEHOLDER)-vault-internal.$(NAME_PLACEHOLDER)-vault.svc.cluster.local:8200"
+            leader_api_addr = "https://friday-vault-1.friday-vault-internal.friday-vault.svc.cluster.local:8200"
           }
           retry_join {
-            leader_api_addr = "https://$(NAME_PLACEHOLDER)-vault-2.$(NAME_PLACEHOLDER)-vault-internal.$(NAME_PLACEHOLDER)-vault.svc.cluster.local:8200"
+            leader_api_addr = "https://friday-vault-2.friday-vault-internal.friday-vault.svc.cluster.local:8200"
           }
         }
         service_registration "kubernetes" {}
