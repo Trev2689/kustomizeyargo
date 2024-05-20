@@ -17,7 +17,7 @@ replacements:
 - source:
     kind: ConfigMap
     name: friday-vault-values-configmap
-    fieldPath: data/name
+    fieldPath: name
   targets:
   - select:
       kind: ServiceMonitor
@@ -34,7 +34,7 @@ replacements:
 - source:
     kind: ConfigMap
     name: friday-vault-values-configmap
-    fieldPath: data/namespace
+    fieldPath: namespace
   targets:
   - select:
       kind: ServiceMonitor
