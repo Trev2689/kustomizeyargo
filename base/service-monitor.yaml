@@ -2,10 +2,10 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   labels:
-    app.kubernetes.io/instance: $(NAME_PLACEHOLDER)
+    app.kubernetes.io/instance: friday
     app.kubernetes.io/name: vault
     release: prometheus
-  name: $(NAME_PLACEHOLDER)-vault-argo
+  name: $(NAME_PLACEHOLDER)
   namespace: $(NAMESPACE_PLACEHOLDER)
 spec:
   endpoints:
@@ -24,5 +24,5 @@ spec:
       - $(NAMESPACE_PLACEHOLDER)
   selector:
     matchLabels:
-      app.kubernetes.io/instance: $(NAME_PLACEHOLDER)
+      app.kubernetes.io/instance: friday
       app.kubernetes.io/name: vault
