@@ -26,9 +26,10 @@ replacements:
     - metadata.name
     - spec.selector.matchLabels.app.kubernetes.io/instance
   - select:
-      kind: HelmChart
+      kind: ConfigMap
+      name: vault-values-template
     fieldPaths:
-    - spec.releaseName
+    - data.global.ha.raft.config.retry_join.leader_api_addr
 
 - source:
     kind: ConfigMap
@@ -41,15 +42,15 @@ replacements:
     - metadata.namespace
     - spec.namespaceSelector.matchNames[*]
   - select:
-      kind: HelmChart
+      kind: ConfigMap
+      name: vault-values-template
     fieldPaths:
-    - spec.namespace
+    - data.global.ha.raft.config.retry_join.leader_api_addr
 
 helmCharts:
 - name: vault
   version: 0.27.0
   releaseName: $(NAME_PLACEHOLDER)
   repo: https://helm.releases.hashicorp.com
-  valuesFile: values.yaml
+  valuesFile: vault-values-template.yaml
   namespace: $(NAMESPACE_PLACEHOLDER)
-
