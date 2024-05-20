@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/name: vault
     release: prometheus
   name: $(NAME_PLACEHOLDER)
-  namespace: $(NAMESPACE_PLACEHOLDER)
+  namespace: friday-vault
 spec:
   endpoints:
     - interval: 30s
@@ -21,7 +21,7 @@ spec:
         insecureSkipVerify: true
   namespaceSelector:
     matchNames:
-      - $(NAMESPACE_PLACEHOLDER)
+      - friday-vault
   selector:
     matchLabels:
       app.kubernetes.io/instance: friday
