@@ -4,14 +4,15 @@ kind: Kustomization
 namespace: friday-vault
 
 resources:
+- configmap.yaml
 - ../../base
 
-configMapGenerator:
-- name: friday-vault-values-configmap
-  files:
-  - values.yaml
-  options:
-    disableNameSuffixHash: true
+# configMapGenerator:
+# - name: friday-vault-values-configmap
+#   files:
+#   - values.yaml
+#   options:
+#     disableNameSuffixHash: true
 
 replacements:
 - source:
