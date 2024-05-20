@@ -16,9 +16,9 @@ resources:
 
 replacements:
 - source:
-    path: values.yaml
-    fieldRef:
-      fieldPath: name
+    name: friday-vault-values-configmap
+    kind: ConfigMap
+    field: data.name
   targets:
   - select:
       kind: ServiceMonitor
@@ -33,9 +33,9 @@ replacements:
     - data.global.ha.raft.config.retry_join.leader_api_addr
 
 - source:
-    path: values.yaml
-    fieldRef:
-      fieldPath: namespace
+    name: friday-vault-values-configmap
+    kind: ConfigMap
+    field: data.namespace
   targets:
   - select:
       kind: ServiceMonitor
