@@ -1,4 +1,4 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
+aapiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 namespace: friday-vault
@@ -20,31 +20,16 @@ replacements:
     fieldPath: data/name
   targets:
   - select:
-      kind: HelmChart
-    fieldPaths:
-    - releaseName
-
-- source:
-    kind: ConfigMap
-    name: friday-vault-values-configmap
-    fieldPath: data/namespace
-  targets:
-  - select:
-      kind: HelmChart
-    fieldPaths:
-    - namespace
-
-- source:
-    kind: ConfigMap
-    name: friday-vault-values-configmap
-    fieldPath: data/name
-  targets:
-  - select:
       kind: ServiceMonitor
     fieldPaths:
     - metadata.labels.app.kubernetes.io/instance
     - metadata.name
     - spec.selector.matchLabels.app.kubernetes.io/instance
+  - select:
+      kind: ConfigMap
+      name: vault-values-template
+    fieldPaths:
+    - data.global.ha.raft.config.retry_join.leader_api_addr
 
 - source:
     kind: ConfigMap
@@ -56,11 +41,16 @@ replacements:
     fieldPaths:
     - metadata.namespace
     - spec.namespaceSelector.matchNames[*]
+  - select:
+      kind: ConfigMap
+      name: vault-values-template
+    fieldPaths:
+    - data.global.ha.raft.config.retry_join.leader_api_addr
 
 helmCharts:
 - name: vault
   version: 0.27.0
-  releaseName: $(NAME_PLACEHOLDER)  # Placeholder to be replaced
+  releaseName: friday
   repo: https://helm.releases.hashicorp.com
-  valuesFile: vault-values-template.yaml
-  namespace: $(NAMESPACE_PLACEHOLDER)  # Placeholder to be replaced
+  valuesFile: vault-values-template.yaml  # Adjusted path
+  namespace: friday-vault
