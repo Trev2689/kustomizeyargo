@@ -54,7 +54,7 @@ replacements:
 helmCharts:
 - name: vault
   version: 0.27.0
-  releaseName: friday2
+  releaseName: friday22
   repo: https://helm.releases.hashicorp.com
   valuesFile: vault-values-template.yaml  # Adjusted path
   namespace: friday-vault
