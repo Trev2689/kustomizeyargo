@@ -52,5 +52,5 @@ helmCharts:
   version: 0.27.0
   releaseName: $(NAME_PLACEHOLDER)
   repo: https://helm.releases.hashicorp.com
-  valuesFile: vault-values-template.yaml
+  valuesFile: ../../base/vault-values-template.yaml  # Corrected path
   namespace: $(NAMESPACE_PLACEHOLDER)
