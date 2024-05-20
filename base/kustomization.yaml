@@ -4,9 +4,9 @@ kind: Kustomization
 resources:
 - service-monitor.yaml
 
-configMapGenerator:
-- name: vault-values-template
-  files:
-  - vault-values-template.yaml
-  options:
-    disableNameSuffixHash: true
+# configMapGenerator:
+# - name: vault-values-template
+#   files:
+#   - vault-values-template.yaml
+#   options:
+#     disableNameSuffixHash: true
