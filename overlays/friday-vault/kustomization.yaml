@@ -18,7 +18,9 @@ replacements:
 - source:
     name: friday-vault-values-configmap
     kind: ConfigMap
-    field: data.name
+    fieldSpecs:
+    - path: data.name
+      create: true
   targets:
   - select:
       kind: ServiceMonitor
@@ -32,10 +34,13 @@ replacements:
     fieldPaths:
     - data.global.ha.raft.config.retry_join.leader_api_addr
 
+replacements:
 - source:
     name: friday-vault-values-configmap
     kind: ConfigMap
-    field: data.namespace
+    fieldSpecs:
+    - path: data.namespace
+      create: true
   targets:
   - select:
       kind: ServiceMonitor
