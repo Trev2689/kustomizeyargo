@@ -18,6 +18,7 @@ replacements:
 - source:
     kind: ConfigMap
     name: friday-vault-values-configmap
+    namespace: friday-vault
     fieldPath: data.values.yaml.name
   targets:
   - select:
