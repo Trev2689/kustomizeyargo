@@ -1,28 +1,28 @@
-apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
-metadata:
-  labels:
-    app.kubernetes.io/instance: friday
-    app.kubernetes.io/name: vault
-    release: prometheus
-  name: $(NAME_PLACEHOLDER)
-  namespace: friday-vault
-spec:
-  endpoints:
-    - interval: 30s
-      params:
-        format:
-          - prometheus
-      path: /v1/sys/metrics
-      port: https
-      scheme: https
-      scrapeTimeout: 10s
-      tlsConfig:
-        insecureSkipVerify: true
-  namespaceSelector:
-    matchNames:
-      - friday-vault
-  selector:
-    matchLabels:
-      app.kubernetes.io/instance: friday
-      app.kubernetes.io/name: vault
+# apiVersion: monitoring.coreos.com/v1
+# kind: ServiceMonitor
+# metadata:
+#   labels:
+#     app.kubernetes.io/instance: friday
+#     app.kubernetes.io/name: vault
+#     release: prometheus
+#   name: $(NAME_PLACEHOLDER)
+#   namespace: friday-vault
+# spec:
+#   endpoints:
+#     - interval: 30s
+#       params:
+#         format:
+#           - prometheus
+#       path: /v1/sys/metrics
+#       port: https
+#       scheme: https
+#       scrapeTimeout: 10s
+#       tlsConfig:
+#         insecureSkipVerify: true
+#   namespaceSelector:
+#     matchNames:
+#       - friday-vault
+#   selector:
+#     matchLabels:
+#       app.kubernetes.io/instance: friday
+#       app.kubernetes.io/name: vault
