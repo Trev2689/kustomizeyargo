@@ -1,42 +1,42 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
+# apiVersion: kustomize.config.k8s.io/v1beta1
+# kind: Kustomization
 
-namespace: friday-vault
+# namespace: friday-vault
 
-resources:
-# - configmap/
-- ../../base
+# resources:
+# # - configmap/
+# - ../../base
 
-# configMapGenerator:
-# - name: friday-vault-values-configmap
-#   files:
-#   - values.yaml
-#   options:
-#     disableNameSuffixHash: true
+# # configMapGenerator:
+# # - name: friday-vault-values-configmap
+# #   files:
+# #   - values.yaml
+# #   options:
+# #     disableNameSuffixHash: true
 
-replacements:
-- source:
-    kind: ConfigMap
-    version: v1
-    group: ""
-    name: friday-vault-values-configmap
-    # namespace: friday-vault
-    fieldPath: data.NAMEE
-  targets:
-  - select:
-      kind: ServiceMonitor
-    fieldPaths:
-    # - metadata.labels.app.kubernetes.io/instance
-    - metadata.name
-    options:
-      delimiter:
-        - "$(NAMEE)"
-    # - spec.selector.matchLabels.app.kubernetes.io/instance
-  # - select:
-  #     kind: ConfigMap
-  #     name: vault-values-template
-  #   fieldPaths:
-  #   - data.global.ha.raft.config.retry_join.leader_api_addr
+# replacements:
+# - source:
+#     kind: ConfigMap
+#     version: v1
+#     group: ""
+#     name: friday-vault-values-configmap
+#     # namespace: friday-vault
+#     fieldPath: data.NAMEE
+#   targets:
+#   - select:
+#       kind: ServiceMonitor
+#     fieldPaths:
+#     # - metadata.labels.app.kubernetes.io/instance
+#     - metadata.name
+#     options:
+#       delimiter:
+#         - "$(NAMEE)"
+#     # - spec.selector.matchLabels.app.kubernetes.io/instance
+#   # - select:
+#   #     kind: ConfigMap
+#   #     name: vault-values-template
+#   #   fieldPaths:
+#   #   - data.global.ha.raft.config.retry_join.leader_api_addr
 
 # replacements:
 # - source:
@@ -56,10 +56,10 @@ replacements:
   #   fieldPaths:
   #   - data.global.ha.raft.config.retry_join.leader_api_addr
 
-helmCharts:
-- name: vault
-  version: 0.27.0
-  releaseName: friday22
-  repo: https://helm.releases.hashicorp.com
-  valuesFile: vault-values-template.yaml  # Adjusted path
-  namespace: friday-vault
+# helmCharts:
+# - name: vault
+#   version: 0.27.0
+#   releaseName: friday22
+#   repo: https://helm.releases.hashicorp.com
+#   valuesFile: vault-values-template.yaml  # Adjusted path
+#   namespace: friday-vault
